@@ -10,8 +10,6 @@
 # while nested random effects take the form (1 | r1 / r2).
 
 library(lme4)
-library(doBy)
-
 # read data
 data(dietox, package = 'geepack')
 
@@ -50,6 +48,3 @@ summary(fm1)
 
 # add a random slope term
 fm2 <- lmer(Weight ~ Time + (1|Litter/Cu), data = dietox)
-
-
-
