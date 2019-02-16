@@ -48,3 +48,5 @@ summary(fm1)
 
 # add a random slope term
 fm2 <- lmer(Weight ~ Time + (1|Litter/Cu), data = dietox)
+
+# need more review
