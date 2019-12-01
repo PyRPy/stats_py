@@ -83,7 +83,7 @@ class Game:
                     sprite.move()
             self.tk.update_idletasks()
             self.tk.update()
-            self.sleep(0.01)
+            time.sleep(0.1)
 
 class Sprite:
     def __init__(self, game):
@@ -209,7 +209,7 @@ class StickFigureSprite(Sprite):
                 self.y = -self.y
                 top = False
             if bottom and self.y and collided_bottom(self.y, \
-                    co. sprite_co):
+                    co, sprite_co):
                 self.y = sprite_co.y1 - co.y2
                 if self.y < 0:
                     self.y = 0
@@ -222,13 +222,26 @@ class StickFigureSprite(Sprite):
             if left and self.x < 0 and collided_left(co, sprite_co):
                 self.x = 0
                 left = False
-            if right and self.x > 0 and collied_right(co, sprite_co):
+                if sprite.endgame:
+                    self.game.running = False
+            if right and self.x > 0 and collided_right(co, sprite_co):
                 self.x = 0
                 right = False
+                if sprite.endgame:
+                    self.game.running = False
         if falling and bottom and self.y == 0 \
                and co.y2 < self.game.canvas_height:
             self.y = 4
         self.game.canvas.move(self.image, self.x, self.y)
+
+class DoorSprite(Sprite):
+    def __init__(self, game, photo_image, x, y, width, height):
+        Sprite.__init__(self, game)
+        self.photo_image = photo_image
+        self.image = game.canvas.create_image(x, y, \
+                image=self.photo_image, anchor='nw')
+        self.coordinates = Coords(x, y, x + (width/2), y + height)
+        self.endgame = True
 
 g = Game()
 platform1 = PlatformSprite(g, PhotoImage(file = "platform1.gif"), \
@@ -272,7 +285,8 @@ g.sprites.append(platform7)
 g.sprites.append(platform8)
 g.sprites.append(platform9)
 g.sprites.append(platform10)
-
+door = DoorSprite(g, PhotoImage(file = "door1.gif"), 45, 30, 40, 35)
+g.sprites.append(door)
 sf = StickFigureSprite(g)
 g.sprites.append(sf)
 
