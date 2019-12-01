@@ -46,7 +46,7 @@ def collided_top(co1, co2):
             return True
     return False
 
-def collided_bottom(co1, co2):
+def collided_bottom(y, co1, co2):
     if within_x(co1, co2):
         y_calc = co1.y2 + y
         if y_calc >= co2.y1 and y_calc <= co2.y2:
@@ -208,7 +208,7 @@ class StickFigureSprite(Sprite):
             if top and self.y < 0 and collided_top(co, sprite_co):
                 self.y = -self.y
                 top = False
-            if bottom and self.y and collided_bottom(self.y, \
+            if bottom and self.y > 0 and collided_bottom(self.y, \
                     co, sprite_co):
                 self.y = sprite_co.y1 - co.y2
                 if self.y < 0:
@@ -217,7 +217,7 @@ class StickFigureSprite(Sprite):
                 top = False
             if bottom and falling and self.y == 0 \
                    and co.y2 < self.game.canvas_height\
-                   and collied_bottom(1, co, sprite_co):
+                   and collided_bottom(1, co, sprite_co):
                 falling = False
             if left and self.x < 0 and collided_left(co, sprite_co):
                 self.x = 0
