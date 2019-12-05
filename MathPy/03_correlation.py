@@ -54,5 +54,10 @@ if __name__ == '__main__':
     corr_xy = find_corr_x_y(simple_list1, simple_list2)
     print('correlation between x and y: {0}'.format(corr_xy))
 
+    # use numpy to check the results
+    import numpy as np
+    corr_xy_np = np.corrcoef(simple_list1, simple_list2)
+    print('correlation between x and y using np: {0}'.format(corr_xy_np[0][1]))
+    print('two correlations are same: ', corr_xy == corr_xy_np[0][1])
     # scatter plot for the data
     scatter_plot(simple_list1, simple_list2)
