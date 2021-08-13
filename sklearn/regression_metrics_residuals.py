@@ -67,4 +67,8 @@ resids = bos_y_test - rfr.predict(bos_X_test)
 from scipy import stats
 fig, ax = plt.subplots(figsize = (6, 4))
 _ = stats.probplot(resids, plot=ax)
+
+# histogram of residuals
+fig, ax = plt.subplots(figsize=(6, 4))
+pd.Series(resids, name="residuals").plot.hist(bins=20, ax=ax, title="residual histogram")
 plt.show()
