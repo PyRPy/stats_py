@@ -61,8 +61,10 @@ print("R2: ", metrics.r2_score(bos_y_test, bos_y_test_pred))
 print("Mean squared error: ", metrics.mean_squared_error(bos_y_test, bos_y_test_pred))
 
 # Residuals plot
+import statsmodels.stats.api as sms 
+resids = bos_y_test - rfr.predict(bos_X_test)
 
-
-
-
-
+from scipy import stats
+fig, ax = plt.subplots(figsize = (6, 4))
+_ = stats.probplot(resids, plot=ax)
+plt.show()
